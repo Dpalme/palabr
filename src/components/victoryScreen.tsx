@@ -27,7 +27,12 @@ function getScore(game: string) {
   const correct = game.match(/🟩/g) || [];
   const wrongSpot = game.match(/🟨/g) || [];
   const wrong = game.match(/⬛️/g) || [];
-  return correct.length * 2 + wrongSpot.length - wrong.length;
+
+  return (
+    ((correct.length * 4 + wrongSpot.length * 2 - wrong.length) /
+      ((game.length - 5) / 5)) >>
+    0
+  );
 }
 
 export const VictoryScreen = (props: { results: string[][] }) => {
