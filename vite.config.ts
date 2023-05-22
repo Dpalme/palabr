@@ -11,7 +11,6 @@ export default defineConfig(({ command, mode }) => {
     plugins: [react(), WindiCSS()],
     server: {
       open: true,
-      https: true,
     },
     ssr: {
       target: 'node',
