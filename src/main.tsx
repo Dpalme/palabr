@@ -4,24 +4,29 @@ import App from './App.tsx';
 import 'virtual:windi.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    action: async ({ request }) => {
-      switch (request.method) {
-        case 'POST': {
-          let formData = await request.formData();
-          const guess = formData.get('guess');
-          return guess?.slice(0, 5).toString().toUpperCase();
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      action: async ({ request }) => {
+        switch (request.method) {
+          case 'POST': {
+            let formData = await request.formData();
+            const guess = formData.get('guess');
+            return guess?.slice(0, 5).toString().toUpperCase();
+          }
+          default: {
+            throw new Response('', { status: 405 });
+          }
         }
-        default: {
-          throw new Response('', { status: 405 });
-        }
-      }
+      },
     },
-  },
-]);
+  ],
+  {
+    basename: import.meta.env.BASE_URL,
+  }
+);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
