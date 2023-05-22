@@ -32,14 +32,14 @@ function getScore(game: string) {
 
 export const VictoryScreen = (props: { results: string[][] }) => {
   const game = props.results.map((round) => round.join('')).join('\n');
-  const fecha = new Date().toISOString().slice(0, 9);
-  const shareString = `palabr ${fecha} ${
+  const today = new Date().toISOString().slice(0, 10);
+  const shareString = `palabr ${today} ${
     props.results.length
   }/6\n\npuntos: ${getScore(game)}\n\n${game}`;
   return (
     <div className="fixed z-10 top-0 left-0 w-full h-full bg-dark-300 bg-opacity-50">
       <div className="bottom-0 w-full absolute p-4 bg-dark-300 h-[30vh]">
-        <h2 className="text-3xl">{new Date().toISOString().slice(0, 9)}</h2>
+        <h2 className="text-3xl">{today}</h2>
         <div className="flex w-full flex-row gap-4 mb-4">
           <p className="text-2xl">Puntuación {getScore(game)}</p>
         </div>
