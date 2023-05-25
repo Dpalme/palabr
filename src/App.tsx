@@ -5,12 +5,14 @@ import { useActionData } from 'react-router-dom';
 import { LetterChip } from './components/letterChip';
 import { validateGuess } from './hooks/useWordValidation';
 import { VictoryScreen } from './components/victoryScreen';
+import { useToday } from './hooks/useToday';
 
 function range(n: number) {
   return [...Array(n).keys()];
 }
 
 function App() {
+  const today = useToday()
   const word = useDailyWord();
   const lastAttempt = useActionData() as string;
   const attempts = useRef<string[]>([]);
@@ -26,7 +28,8 @@ function App() {
 
   return (
     <>
-      <h1 className="font-title uppercase text-4xl mb-4">Palabr</h1>
+      <h1 className="font-title uppercase text-4xl mb-2">Palabr</h1>
+      <p className='mb-2'>{today}</p>
       <div className="grid grid-rows-6 grid-cols-[repeat(5,3.5rem)] gap-2 justify-center">
         {attempts.current.flatMap((word, i) =>
           word

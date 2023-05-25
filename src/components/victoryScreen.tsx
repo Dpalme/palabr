@@ -1,3 +1,5 @@
+import { useToday } from '../hooks/useToday';
+
 function shareGame(shareString: string) {
   if (navigator && !!navigator.share) {
     navigator
@@ -37,10 +39,11 @@ function getScore(game: string) {
 
 export const VictoryScreen = (props: { results: string[][] }) => {
   const game = props.results.map((round) => round.join('')).join('\n');
-  const today = new Date().toISOString().slice(0, 10);
+  const today = useToday();
   const shareString = `palabr ${today} ${
     props.results.length
   }/6\n\npuntos: ${getScore(game)}\n\n${game}`;
+  
   return (
     <div className="fixed z-10 top-0 left-0 w-full h-full bg-dark-300 bg-opacity-50">
       <div className="bottom-0 w-full absolute p-4 bg-dark-300 h-[30vh]">
