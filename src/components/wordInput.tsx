@@ -1,10 +1,11 @@
-import { Form, useSubmit } from 'react-router-dom';
+import { Form, useLocation, useSubmit } from 'react-router-dom';
 import { LetterChip } from './letterChip';
 import { VALID_INPUT } from '../validInput';
 import { useForm } from 'react-hook-form';
 import { Keyboard } from './fakeKeyboard';
 
 export const WordInput = () => {
+  const location = useLocation();
   const { register, watch, setValue, getValues } = useForm({
     defaultValues: { guess: '' },
   });
@@ -18,7 +19,7 @@ export const WordInput = () => {
     .split('')
     .map((letter, i) => (
       <LetterChip key={i} letter={letter} classList="currentGuess" />
-    ));
+    ));  
 
   return (
     <>
@@ -32,7 +33,7 @@ export const WordInput = () => {
         <Form
           replace
           method="post"
-          action="/"
+          action={location.pathname}
           id="word-form"
           onSubmit={() => {
             requestAnimationFrame(() => setValue('guess', ''));
@@ -81,7 +82,7 @@ export const WordInput = () => {
         }
         submitWord={() => {
           if (guess.length != 5) return;
-          submit(getValues(), { action: '/', method: 'POST' });
+          submit(getValues(), { action: location.pathname, method: 'POST' });
           requestAnimationFrame(() => setValue('guess', ''));
         }}
       />
