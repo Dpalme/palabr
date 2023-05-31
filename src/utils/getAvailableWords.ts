@@ -5,8 +5,6 @@ export async function getAvailableWords(letters: ILetters) {
   let filteredWords = [...wordList];
   for (const [letter, { status, position }] of Object.entries(letters)) {
     switch (status) {
-      case '':
-        break;
       case '⬛️':
         const nexp = new RegExp(letter.toLowerCase());
         filteredWords = filteredWords.filter((word) => !nexp.test(word));
@@ -20,9 +18,11 @@ export async function getAvailableWords(letters: ILetters) {
           ].join('')
         );
         filteredWords = filteredWords.filter((word) => posexp.test(word));
+        break;
       case '🟨':
         const mayxp = new RegExp(letter.toLowerCase());
         filteredWords = filteredWords.filter((word) => mayxp.test(word));
+        break;
       default:
         break;
     }

@@ -9,7 +9,6 @@ import { LetterChip } from './letterChip';
 import { WordInput } from './wordInput';
 import { VictoryScreen } from './victoryScreen';
 import { getAvailableWords } from '@/utils/getAvailableWords';
-import { WordDictionary } from './wordDictionary';
 import { HelpToggle } from './helpToggle';
 
 function getWord(gameType: string, params: Params) {
