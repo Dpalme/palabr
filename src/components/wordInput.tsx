@@ -4,7 +4,7 @@ import { VALID_INPUT } from '../validInput';
 import { useForm } from 'react-hook-form';
 import { Keyboard } from './fakeKeyboard';
 
-export const WordInput = () => {
+export const WordInput = (props: { letters: ILetters }) => {
   const location = useLocation();
   const { register, watch, setValue, getValues } = useForm({
     defaultValues: { guess: '' },
@@ -19,7 +19,7 @@ export const WordInput = () => {
     .split('')
     .map((letter, i) => (
       <LetterChip key={i} letter={letter} classList="currentGuess" />
-    ));  
+    ));
 
   return (
     <>
@@ -85,6 +85,7 @@ export const WordInput = () => {
           submit(getValues(), { action: location.pathname, method: 'POST' });
           requestAnimationFrame(() => setValue('guess', ''));
         }}
+        letters={props.letters}
       />
     </>
   );

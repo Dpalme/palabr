@@ -4,6 +4,7 @@ const Key = (props: {
   letter: string;
   className?: string;
   onClick?: MouseEventHandler;
+  status?: string;
 }) => {
   return (
     <div
@@ -11,6 +12,12 @@ const Key = (props: {
         'w-auto h-12 bg-dark-50 text-white rounded-md cursor-pointer',
         'text-center uppercase font-800 text-xl leading-relaxed',
         'flex content-center items-center justify-center col-span-2',
+        props.status == '🟩'
+          ? 'bg-green-400 outline-green-400'
+          : props.status == '🟨'
+          ? 'bg-yellow-400 outline-yellow-400'
+          : props.status == '⬛️' && 'bg-dark-500 outline-dark-500',
+        !props.status && 'bg-dark-50 outline-dark-50',
         props.className,
       ].join(' ')}
       onClick={props.onClick}
@@ -24,6 +31,7 @@ export const Keyboard = (props: {
   submitWord: Function;
   addLetter: Function;
   removeLetter: Function;
+  letters: ILetters;
 }) => {
   return (
     <div
@@ -36,6 +44,7 @@ export const Keyboard = (props: {
             key={letter}
             letter={letter}
             onClick={() => props.addLetter(letter)}
+            status={props.letters[letter]}
           />
         ))}
       </div>
@@ -45,6 +54,7 @@ export const Keyboard = (props: {
             key={letter}
             letter={letter}
             onClick={() => props.addLetter(letter)}
+            status={props.letters[letter]}
           />
         ))}
       </div>
@@ -59,6 +69,7 @@ export const Keyboard = (props: {
             key={letter}
             letter={letter}
             onClick={() => props.addLetter(letter)}
+            status={props.letters[letter]}
           />
         ))}
         <Key

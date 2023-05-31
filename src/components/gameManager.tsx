@@ -18,7 +18,13 @@ function getWord(gameType: string, params: Params) {
       return { title: useToday(), word: useDailyWord() };
   }
 }
+
 export function GameManager(props: { gameType: string }) {
+  const [letters, setLetters] = useState<ILetters>(
+    Object.fromEntries(
+      'QWERTYUIOPASDFGHJKLÑZXCVBNM'.split('').map((l) => [l, ''])
+    )
+  );
   const params = useParams();
   const { title, word } = getWord(props.gameType, params);
   const lastAttempt = useActionData() as string;
@@ -29,7 +35,10 @@ export function GameManager(props: { gameType: string }) {
   useEffect(() => {
     if (!lastAttempt) return;
     attempts.current.push(lastAttempt);
-    results.current.push(validateGuess(lastAttempt, word));
+    const result = validateGuess(lastAttempt, word);
+    results.current.push(result);
+
+    updateFoundLetters(result);
     setNumAttempts(numAttempts + 1);
   }, [lastAttempt]);
 
@@ -50,7 +59,7 @@ export function GameManager(props: { gameType: string }) {
         )}
         {numAttempts < 6 && (
           <>
-            <WordInput />
+            <WordInput letters={letters} />
             {range(5 - numAttempts).flatMap((i) =>
               range(5).map((n) => (
                 <LetterChip
@@ -62,16 +71,27 @@ export function GameManager(props: { gameType: string }) {
             )}
           </>
         )}
-        {(results.current[results.current.length - 1]?.join('') ==
-          '🟩🟩🟩🟩🟩' ||
-          numAttempts == 6) && (
-          <VictoryScreen
-            results={results.current}
-            gameType={props.gameType}
-            title={title}
-          />
-        )}
+        {numAttempts >= 6 ||
+          (results.current[results.current.length - 1]?.join('') ==
+            '🟩🟩🟩🟩🟩' && (
+            <VictoryScreen
+              results={results.current}
+              gameType={props.gameType}
+              title={title}
+            />
+          ))}
       </div>
     </>
   );
+
+  function updateFoundLetters(result: ("🟩" | "🟨" | "⬛️")[]) {
+    const updateToLetters = Object.fromEntries(
+      lastAttempt
+        .split('')
+        .filter((letter) => letters[letter] != '🟩')
+        .reverse()
+        .map((letter, i) => [letter, result[4 - i]])
+    );
+    setLetters({ ...letters, ...updateToLetters });
+  }
 }
