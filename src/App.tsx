@@ -6,7 +6,7 @@ function App(props: { gameType: string }) {
   return (
     <>
       <Navbar />
-      <h1 className="font-title uppercase text-4xl mb-2">Palabr</h1>
+      <h1 className="font-title uppercase text-2xl mt-2">Palabr</h1>
       {props.gameType == 'seedForm' ? (
         <SeedForm />
       ) : (

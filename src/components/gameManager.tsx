@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Params, useActionData, useParams } from 'react-router-dom';
 import { range } from '../utils/range';
 import { useToday } from '../hooks/useToday';
@@ -8,6 +8,9 @@ import { validateGuess } from '../hooks/useWordValidation';
 import { LetterChip } from './letterChip';
 import { WordInput } from './wordInput';
 import { VictoryScreen } from './victoryScreen';
+import { getAvailableWords } from '@/utils/getAvailableWords';
+import { WordDictionary } from './wordDictionary';
+import { HelpToggle } from './helpToggle';
 
 function getWord(gameType: string, params: Params) {
   switch (gameType) {
@@ -22,7 +25,9 @@ function getWord(gameType: string, params: Params) {
 export function GameManager(props: { gameType: string }) {
   const [letters, setLetters] = useState<ILetters>(
     Object.fromEntries(
-      'QWERTYUIOPASDFGHJKLÑZXCVBNM'.split('').map((l) => [l, ''])
+      'QWERTYUIOPASDFGHJKLÑZXCVBNM'
+        .split('')
+        .map((l) => [l, { status: '', position: null }])
     )
   );
   const params = useParams();
@@ -37,14 +42,19 @@ export function GameManager(props: { gameType: string }) {
     attempts.current.push(lastAttempt);
     const result = validateGuess(lastAttempt, word);
     results.current.push(result);
-
+    getAvailableWords(letters);
     updateFoundLetters(result);
     setNumAttempts(numAttempts + 1);
   }, [lastAttempt]);
 
+  useMemo(() => {
+    getAvailableWords(letters);
+  }, [letters]);
+
   return (
     <>
-      <p className="mb-2">{title}</p>
+      <p className="mb-4 text-sm">{title}</p>
+      <HelpToggle letters={letters} />
       <div className="grid grid-rows-6 grid-cols-[repeat(5,3.5rem)] gap-2 justify-center">
         {attempts.current.flatMap((word, i) =>
           word
@@ -79,19 +89,21 @@ export function GameManager(props: { gameType: string }) {
             gameType={props.gameType}
             title={title}
           />
-          ))}
+        )}
       </div>
     </>
   );
 
-  function updateFoundLetters(result: ("🟩" | "🟨" | "⬛️")[]) {
-    const updateToLetters = Object.fromEntries(
-      lastAttempt
-        .split('')
-        .filter((letter) => letters[letter] != '🟩')
-        .reverse()
-        .map((letter, i) => [letter, result[4 - i]])
-    );
+  function updateFoundLetters(result: ('🟩' | '🟨' | '⬛️')[]) {
+    const updateToLetters: ILetters = {};
+
+    for (let i = 0; i < lastAttempt.length; i++) {
+      if (updateToLetters[lastAttempt.charAt(i)] != undefined) continue;
+      updateToLetters[lastAttempt.charAt(i)] = {
+        status: result[i],
+        position: i,
+      };
+    }
     setLetters({ ...letters, ...updateToLetters });
   }
 }

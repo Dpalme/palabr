@@ -35,7 +35,7 @@ export const Keyboard = (props: {
 }) => {
   return (
     <div
-      className="fixed bottom-0 mb-12 flex flex-col gap-2 p-2 bg-dark-200
+      className="fixed bottom-0 mb-10 flex flex-col gap-2 p-2 bg-dark-200
     w-full left-0 col-span-full isolate content-center items-center"
     >
       <div className="w-full grid grid-cols-20 gap-1">
@@ -44,7 +44,7 @@ export const Keyboard = (props: {
             key={letter}
             letter={letter}
             onClick={() => props.addLetter(letter)}
-            status={props.letters[letter]}
+            status={props.letters[letter].status}
           />
         ))}
       </div>
@@ -54,7 +54,7 @@ export const Keyboard = (props: {
             key={letter}
             letter={letter}
             onClick={() => props.addLetter(letter)}
-            status={props.letters[letter]}
+            status={props.letters[letter].status}
           />
         ))}
       </div>
@@ -69,7 +69,7 @@ export const Keyboard = (props: {
             key={letter}
             letter={letter}
             onClick={() => props.addLetter(letter)}
-            status={props.letters[letter]}
+            status={props.letters[letter].status}
           />
         ))}
         <Key
