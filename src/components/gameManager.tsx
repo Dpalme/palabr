@@ -71,14 +71,14 @@ export function GameManager(props: { gameType: string }) {
             )}
           </>
         )}
-        {numAttempts >= 6 ||
-          (results.current[results.current.length - 1]?.join('') ==
-            '🟩🟩🟩🟩🟩' && (
-            <VictoryScreen
-              results={results.current}
-              gameType={props.gameType}
-              title={title}
-            />
+        {(numAttempts >= 6 ||
+          results.current[results.current.length - 1]?.join('') ==
+            '🟩🟩🟩🟩🟩') && (
+          <VictoryScreen
+            results={results.current}
+            gameType={props.gameType}
+            title={title}
+          />
           ))}
       </div>
     </>
