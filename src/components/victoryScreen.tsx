@@ -52,7 +52,7 @@ export const VictoryScreen = (props: {
         <div className="flex w-full flex-row gap-4 mb-4">
           <p className="text-2xl">Puntuación {getScore(game)}</p>
         </div>
-        {!navigator.clipboard.writeText && (
+        {!navigator.clipboard?.writeText && (
           <textarea defaultValue={shareString} id="resultText" />
         )}
         <div
