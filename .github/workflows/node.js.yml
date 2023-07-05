@@ -26,7 +26,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
       - run: yarn install
-      - run: echo 'BASE_URL="${{secrets.BASE_URL}}"' >> .env
       - run: yarn build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
