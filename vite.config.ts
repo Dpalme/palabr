@@ -41,6 +41,5 @@ export default defineConfig(({ command, mode }) => {
         ),
       },
     },
-    base: env.BASE_URL || '',
   };
 });
