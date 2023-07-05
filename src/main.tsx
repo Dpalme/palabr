@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import 'virtual:windi.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom';
 
 const router = createBrowserRouter(
   [
@@ -41,6 +45,10 @@ const router = createBrowserRouter(
           }
         }
       },
+    },
+    {
+      path: '*',
+      element: <Navigate to="/" />,
     },
   ],
   {
