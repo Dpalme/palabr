@@ -17,7 +17,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.21.3",
-    "url": "^0.11.0"
+    "url": "^0.11.3"
   },
   "devDependencies": {
     "@types/md5": "^2.3.5",
