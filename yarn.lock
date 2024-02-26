@@ -1141,10 +1141,10 @@ flatted@^3.1.0:
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-framer-motion@^10.12.12:
-  version "10.12.12"
-  resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-10.12.12.tgz"
-  integrity sha512-DDCqp60U6hR7aUrXj/BXc/t0Sd/U4ep6w/NZQkw898K+u7s+Vv/P8yxq4WTNA86kU9QCsqOgn1Qhz2DpYK0Oag==
+framer-motion@^11.0.6:
+  version "11.0.6"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.0.6.tgz#97c3076d9d718486eb533b58b88db800139d5fc3"
+  integrity sha512-BpO3mWF8UwxzO3Ca5AmSkrg14QYTeJa9vKgoLOoBdBdTPj0e81i1dMwnX6EQJXRieUx20uiDBXq8bA6y7N6b8Q==
   dependencies:
     tslib "^2.4.0"
   optionalDependencies:
