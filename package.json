@@ -15,7 +15,7 @@
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.9",
+    "react-hook-form": "^7.50.1",
     "react-router-dom": "^6.21.3",
     "url": "^0.11.3"
   },
